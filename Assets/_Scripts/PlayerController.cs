@@ -4,21 +4,21 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Settings")]
-    [Tooltip("Скорость передвижения игрока")]
+    [Tooltip("РЎРєРѕСЂРѕСЃС‚СЊ РїРµСЂРµРґРІРёР¶РµРЅРёСЏ РёРіСЂРѕРєР°")]
     [SerializeField] private float moveSpeed = 5f;
 
     private Rigidbody2D _rb;
     private Vector2 _movement;
 
     /// <summary>
-    /// Инициализация компонентов.
+    /// РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РєРѕРјРїРѕРЅРµРЅС‚РѕРІ.
     /// </summary>
     private void Awake() {
         _rb = GetComponent<Rigidbody2D>();
     }
 
     /// <summary>
-    /// Считывание ввода игрока каждый кадр.
+    /// РЎС‡РёС‚С‹РІР°РЅРёРµ РІРІРѕРґР° РёРіСЂРѕРєР° РєР°Р¶РґС‹Р№ РєР°РґСЂ.
     /// </summary>
     private void Update() {
         float moveX = Input.GetAxisRaw("Horizontal");
@@ -28,9 +28,9 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Применение физического движения с фиксированной частотой.
+    /// РџСЂРёРјРµРЅРµРЅРёРµ С„РёР·РёС‡РµСЃРєРѕРіРѕ РґРІРёР¶РµРЅРёСЏ СЃ С„РёРєСЃРёСЂРѕРІР°РЅРЅРѕР№ С‡Р°СЃС‚РѕС‚РѕР№.
     /// </summary>
     private void FixedUpdate() {
-        _rb.MovePosition(_rb.position + _movement * moveSpeed * Time.fixedDeltaTime);
+        _rb.linearVelocity = _movement * moveSpeed;
     }
 }
