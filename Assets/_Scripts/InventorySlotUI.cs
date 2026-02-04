@@ -12,6 +12,12 @@ public class InventorySlotUI : MonoBehaviour
     private ItemData _currentItem;
     private InventoryUI _parentUI;
 
+    private void Awake() {
+        if (button == null) button = GetComponent<Button>();
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(OnClick);
+    }
+
     /// <summary>
     /// Инициализация слота. Вызывается при обновлении инвентаря.
     /// </summary>

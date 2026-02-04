@@ -25,6 +25,8 @@ public class InventoryController : MonoBehaviour
 
         items.Add(item);
         Debug.Log($"Подобран предмет: {item.itemName}");
+
+        onItemChanged?.Invoke();
         return true;
     }
 
