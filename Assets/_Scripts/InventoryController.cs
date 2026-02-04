@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,8 @@ using UnityEngine;
 /// </summary>
 public class InventoryController : MonoBehaviour
 {
+    public Action onItemChanged;
+
     public List<ItemData> items = new List<ItemData>();
 
     [SerializeField] private int capacity = 10;
