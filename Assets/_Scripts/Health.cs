@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class Health : MonoBehaviour {
     [Header("Settings")]
-    [SerializeField] private int maxHealth = 100;
+    public int maxHealth = 100;
 
     [Header("Knockback")]
     [SerializeField] private float knockbackForce = 5f;
@@ -14,11 +14,15 @@ public class Health : MonoBehaviour {
     private int _currentHealth;
     private Rigidbody2D _rb;
 
+    public Action<int, int> OnHealthChanged;
+
     public Action OnDeath;
 
     private void Start() {
         _currentHealth = maxHealth;
         _rb = GetComponent<Rigidbody2D>();
+
+        OnHealthChanged?.Invoke(_currentHealth, maxHealth);
     }
 
     /// <summary>
@@ -27,6 +31,8 @@ public class Health : MonoBehaviour {
     public void TakeDamage(int damage) {
         _currentHealth -= damage;
         Debug.Log($"{gameObject.name} получил {damage} урона. HP: {_currentHealth}");
+
+        OnHealthChanged?.Invoke(_currentHealth, maxHealth);
 
         if (_currentHealth <= 0) {
             Die();
@@ -46,6 +52,7 @@ public class Health : MonoBehaviour {
     public void Heal(int amount) {
         _currentHealth += amount;
         if (_currentHealth > maxHealth) _currentHealth = maxHealth;
+        OnHealthChanged?.Invoke(_currentHealth, maxHealth);
         Debug.Log($"{gameObject.name} вылечился. HP: {_currentHealth}");
     }
 
