@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IronSword
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   itemName: Iron sword
-  icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  icon: {fileID: 2180695560956562695, guid: 3f179d94a60195647a4cfacb9e69bd75, type: 3}
   description: Cuts your body very sharp!
   damage: 10
   attackRange: 1.5

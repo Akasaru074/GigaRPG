@@ -34,8 +34,7 @@ public class InventorySlotUI : MonoBehaviour
     /// </summary>
     public void OnClick() {
         if (_currentItem != null) {
-            _currentItem.Use();
-            Debug.Log("Клик по предмету!");
+            _currentItem.Use(_parentUI.playerInventory.gameObject);
         }
     }
 
