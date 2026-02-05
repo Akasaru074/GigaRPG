@@ -12,7 +12,9 @@ public class MeleeEnemy : BaseEnemy {
 
             Health playerHealth = player.GetComponent<Health>();
             if (playerHealth != null) {
-                playerHealth.TakeDamage(damage);
+                Vector2 pushDir = (player.position - transform.position);
+
+                playerHealth.TakeDamage(damage, pushDir);
             }
         }
     }

@@ -52,7 +52,11 @@ public class PlayerCombat : MonoBehaviour {
         Collider2D[] hit = Physics2D.OverlapCircleAll(attackPoint.position, range, enemyLayers);
         foreach (Collider2D col in hit) {
             Health hp = col.GetComponent<Health>();
-            if (hp != null) hp.TakeDamage(damage);
+            if (hp != null) {
+                Vector2 knockbackDir = (col.transform.position - transform.position);
+
+                hp.TakeDamage(damage, knockbackDir);
+            }
         }
     }
 

@@ -1,8 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PlayerController : MonoBehaviour
-{
+public class PlayerController : MonoBehaviour, IKnockbackable {
     [Header("Settings")]
     [Tooltip("Скорость передвижения игрока")]
     [SerializeField] private float moveSpeed = 5f;
@@ -11,10 +10,25 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Точка атаки, которая будет поворачиваться в сторону движения")]
     [SerializeField] private Transform attackPoint;
     [SerializeField] private float attackPointDistance = 0.5f;
+    [SerializeField] private float stunTime = 0.15f;
 
     private Rigidbody2D _rb;
     private Vector2 _movement;
     private Vector2 _lastMoveDirection = Vector2.down;
+    private bool _isStunned = false;
+
+    public void ApplyKnockback(Vector2 direction, float force) {
+        _isStunned = true;
+
+        _rb.linearVelocity = Vector2.zero;
+        _rb.AddForce(direction.normalized * force, ForceMode2D.Impulse);
+
+        Invoke(nameof(RecoverFromStun), stunTime);
+    }
+
+    private void RecoverFromStun() {
+        _isStunned = false;
+    }
 
     /// <summary>
     /// Инициализация компонентов.
@@ -42,6 +56,8 @@ public class PlayerController : MonoBehaviour
     /// Применение физического движения с фиксированной частотой.
     /// </summary>
     private void FixedUpdate() {
+        if (_isStunned) return;
+
         _rb.linearVelocity = _movement * moveSpeed;
     }
 

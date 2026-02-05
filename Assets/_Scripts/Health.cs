@@ -8,12 +8,17 @@ public class Health : MonoBehaviour {
     [Header("Settings")]
     [SerializeField] private int maxHealth = 100;
 
+    [Header("Knockback")]
+    [SerializeField] private float knockbackForce = 5f;
+
     private int _currentHealth;
+    private Rigidbody2D _rb;
 
     public Action OnDeath;
 
     private void Start() {
         _currentHealth = maxHealth;
+        _rb = GetComponent<Rigidbody2D>();
     }
 
     /// <summary>
@@ -26,6 +31,16 @@ public class Health : MonoBehaviour {
         if (_currentHealth <= 0) {
             Die();
         }
+    }
+
+    /// <summary>
+    /// Нанесение урона с отталкиванием в указанном направлении.
+    /// </summary>
+    public void TakeDamage(int damage, Vector2 knockbackDirection) {
+        TakeDamage(damage);
+
+        IKnockbackable knockbackTarget = GetComponent<IKnockbackable>();
+        knockbackTarget?.ApplyKnockback(knockbackDirection, knockbackForce);
     }
 
     private void Die() {

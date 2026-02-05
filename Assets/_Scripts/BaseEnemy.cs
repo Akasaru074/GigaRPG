@@ -4,7 +4,7 @@ using UnityEngine;
 /// Базовый класс для всех врагов. Отвечает за поиск игрока.
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
-public abstract class BaseEnemy : MonoBehaviour {
+public abstract class BaseEnemy : MonoBehaviour, IKnockbackable {
     [Header("Stats")]
     public float moveSpeed = 3f;
     public int damage = 10;
@@ -13,6 +13,7 @@ public abstract class BaseEnemy : MonoBehaviour {
 
     protected Transform player;
     protected Rigidbody2D rb;
+    protected bool isStunned = false;
 
     protected virtual void Start() {
         rb = GetComponent<Rigidbody2D>();
@@ -23,6 +24,8 @@ public abstract class BaseEnemy : MonoBehaviour {
     }
 
     protected virtual void FixedUpdate() {
+        if (isStunned) return;
+
         if (player == null) return;
 
         float distance = Vector2.Distance(transform.position, player.position);
@@ -34,6 +37,19 @@ public abstract class BaseEnemy : MonoBehaviour {
         } else {
             rb.linearVelocity = Vector2.zero;
         }
+    }
+
+    public void ApplyKnockback(Vector2 direction, float force) {
+        isStunned = true;
+        rb.linearVelocity = Vector2.zero;
+        rb.AddForce(direction.normalized * force, ForceMode2D.Impulse);
+
+        Invoke(nameof(RecoverFromStun), 0.2f);
+    }
+
+    private void RecoverFromStun() {
+        isStunned = false;
+        rb.linearVelocity = Vector2.zero;
     }
 
     /// <summary>
