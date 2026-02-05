@@ -34,7 +34,13 @@ public class InventorySlotUI : MonoBehaviour
     /// </summary>
     public void OnClick() {
         if (_currentItem != null) {
-            _currentItem.Use(_parentUI.playerInventory.gameObject);
+            InventoryController inventory = _parentUI.playerInventory;
+
+            bool isUsed = _currentItem.Use(inventory.gameObject);
+
+            if (isUsed) {
+                inventory.RemoveItem(_currentItem);
+            }
         }
     }
 

@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca2e3858771b85744b4c520c6d69a284, type: 3}
+  m_Script: {fileID: 11500000, guid: 475f39ef2b0f3904383cf1614fb8d234, type: 3}
   m_Name: HealthPotion
-  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  m_EditorClassIdentifier: Assembly-CSharp::ConsumableData
   itemName: Health potion
   icon: {fileID: 1615732897503146058, guid: cddc310476495e34aa5e88a7a1c98fa1, type: 3}
-  description: Heals you very good!
+  description: Heals you.. maybe
+  healAmount: 50

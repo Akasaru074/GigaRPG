@@ -43,6 +43,12 @@ public class Health : MonoBehaviour {
         knockbackTarget?.ApplyKnockback(knockbackDirection, knockbackForce);
     }
 
+    public void Heal(int amount) {
+        _currentHealth += amount;
+        if (_currentHealth > maxHealth) _currentHealth = maxHealth;
+        Debug.Log($"{gameObject.name} вылечился. HP: {_currentHealth}");
+    }
+
     private void Die() {
         Debug.Log($"{gameObject.name} погиб!");
         OnDeath?.Invoke();

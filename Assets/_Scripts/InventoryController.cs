@@ -50,5 +50,6 @@ public class InventoryController : MonoBehaviour
     /// </summary>
     public void RemoveItem(ItemData item) {
         items.Remove(item);
+        onItemChanged?.Invoke();
     }
 }

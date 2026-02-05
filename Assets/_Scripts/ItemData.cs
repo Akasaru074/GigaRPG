@@ -11,7 +11,8 @@ public class ItemData : ScriptableObject
     /// <summary>
     /// Метод использования предмета. Переопределяется в наследниках.
     /// </summary>
-    public virtual void Use(GameObject source) {
+    public virtual bool Use(GameObject source) {
         Debug.Log($"Использован предмет: {itemName}");
+        return false;
     }
 }
