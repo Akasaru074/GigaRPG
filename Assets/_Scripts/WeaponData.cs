@@ -10,8 +10,15 @@ public class WeaponData : ItemData {
     public int damage = 10;
     public float attackRange = 1.5f;
 
-    public override void Use() {
-        Debug.Log($"Ёкипирован меч: {itemName} с уроном {damage}");
+    public override void Use(GameObject source) {
+
+        InventoryController inventory = source.GetComponent<InventoryController>();
+
+        // 2. ≈сли нашли Ч просим экипировать это оружие
+        if (inventory != null) {
+            inventory.EquipWeapon(this);
+        }
+
     }
 
 }

@@ -13,6 +13,21 @@ public class InventoryController : MonoBehaviour
 
     [SerializeField] private int capacity = 10;
 
+    [Header("Equipment")]
+    public WeaponData currentWeapon;
+
+    public void EquipWeapon(WeaponData weapon) {
+        currentWeapon = weapon;
+        Debug.Log($"Ёкипировано оружие: {weapon.itemName} (”рон: {weapon.damage})");
+    }
+
+    public int GetDamage() {
+        if (currentWeapon != null)
+            return currentWeapon.damage;
+
+        return 5;
+    }
+
     /// <summary>
     /// ѕытаетс€ добавить предмет в инвентарь.
     /// </summary>
